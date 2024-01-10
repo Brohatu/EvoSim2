@@ -1,0 +1,9 @@
+TODO:
+	BIOMES:
+		Add Polar
+		Add Tundra
+		Add Taiga
+	GENERATION:
+		Calculate biomes using precipitation
+		Work out continents
+		Calculate rivers

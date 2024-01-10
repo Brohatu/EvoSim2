@@ -1,0 +1,109 @@
+[gd_scene load_steps=6 format=3 uid="uid://dk2ih5504dpah"]
+
+[ext_resource type="Script" path="res://scenes/tile/tile.gd" id="1_37p6o"]
+[ext_resource type="Texture2D" uid="uid://bqj7u5p6vgvo3" path="res://resources/hex2.png" id="2_d3g2t"]
+[ext_resource type="Texture2D" uid="uid://dmpdireot6xqf" path="res://resources/mountain_scaled.png" id="4_jw5cx"]
+[ext_resource type="Texture2D" uid="uid://po6qu3jdm182" path="res://resources/pine-tree-isaiah658-bigger-preview.png" id="5_1fsmo"]
+[ext_resource type="Texture2D" uid="uid://b657vj6l7bk2g" path="res://resources/jungle_tree_big.png" id="5_07xsg"]
+
+[node name="Tile" type="Area2D"]
+scale = Vector2(1.01, 1.01)
+script = ExtResource("1_37p6o")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 0.523599
+texture = ExtResource("2_d3g2t")
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(75, -130, 150, 0, 75, 130, -75, 130, -150, 0, -75, -130)
+
+[node name="Label" type="Label" parent="."]
+visible = false
+offset_right = 40.0
+offset_bottom = 23.0
+scale = Vector2(1.61242, 1.44862)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "0"
+
+[node name="Sprites" type="Node2D" parent="."]
+
+[node name="Mountains" type="Node2D" parent="Sprites"]
+visible = false
+
+[node name="Sprite2D2" type="Sprite2D" parent="Sprites/Mountains"]
+position = Vector2(-5.94059, -110.891)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("4_jw5cx")
+
+[node name="Sprite2D3" type="Sprite2D" parent="Sprites/Mountains"]
+position = Vector2(29.703, -37.6238)
+scale = Vector2(0.670627, 0.8)
+texture = ExtResource("4_jw5cx")
+
+[node name="Sprite2D4" type="Sprite2D" parent="Sprites/Mountains"]
+position = Vector2(-18.8119, 0)
+scale = Vector2(0.670627, 0.677023)
+texture = ExtResource("4_jw5cx")
+
+[node name="Jungle" type="Node2D" parent="Sprites"]
+visible = false
+
+[node name="Sprite2D2" type="Sprite2D" parent="Sprites/Jungle"]
+position = Vector2(43.5644, -101.98)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_07xsg")
+
+[node name="Sprite2D3" type="Sprite2D" parent="Sprites/Jungle"]
+position = Vector2(-45.5446, -42.5743)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_07xsg")
+
+[node name="Sprite2D4" type="Sprite2D" parent="Sprites/Jungle"]
+position = Vector2(64.3564, 3.9604)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_07xsg")
+
+[node name="Forest" type="Node2D" parent="Sprites"]
+visible = false
+
+[node name="Sprite2D2" type="Sprite2D" parent="Sprites/Forest"]
+position = Vector2(31.6832, -135.644)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_1fsmo")
+
+[node name="Sprite2D3" type="Sprite2D" parent="Sprites/Forest"]
+position = Vector2(-35.6436, -127.723)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_1fsmo")
+
+[node name="Sprite2D4" type="Sprite2D" parent="Sprites/Forest"]
+position = Vector2(61.3861, -72.2772)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_1fsmo")
+
+[node name="Sprite2D5" type="Sprite2D" parent="Sprites/Forest"]
+position = Vector2(-77.2277, -54.4554)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_1fsmo")
+
+[node name="Sprite2D6" type="Sprite2D" parent="Sprites/Forest"]
+position = Vector2(77.2277, -16.8317)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_1fsmo")
+
+[node name="Sprite2D7" type="Sprite2D" parent="Sprites/Forest"]
+position = Vector2(-0.990099, -36.6337)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_1fsmo")
+
+[node name="Sprite2D9" type="Sprite2D" parent="Sprites/Forest"]
+position = Vector2(-48.5149, 44.5545)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_1fsmo")
+
+[node name="Sprite2D8" type="Sprite2D" parent="Sprites/Forest"]
+position = Vector2(38.6139, 39.604)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_1fsmo")
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]
