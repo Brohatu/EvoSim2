@@ -1,0 +1,31 @@
+Steps for generating terrain
+1) determine whether tile is land or ocean
+	pseudocode
+		select x random tiles
+		x.biome = ocean
+		get x neighbours
+		for t in neighbours
+			t.biome is ocean
+
+2) determine temperature region borders
+
+3) determine height of land tile
+
+4) determine whether land tile is arid, wet, or between
+	*4.1) polar tiles cannot be wet, and most are arid
+	4.2) mountain ranges should cast rain shadows
+
+5) apply appropriate terrain based on conditions
+
+
+Temperature regions:
+	1) polar
+	2) temperate
+	3) temperate
+	4) dry
+	5) tropical
+	6) tropical
+	7) dry
+	8) temperate
+	9) temperate
+	10) polar

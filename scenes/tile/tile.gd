@@ -25,16 +25,18 @@ var id:Vector2i
 var biome_hash:int = 0
 var temp:float
 var biome:Array
-
-
+var hight:float = 0.0
 var food:float = 1.0
+var precip:float = 0.0
+# used to hold the new precip value while the remaining tiles on the map have
+# their precip calculated
+var precip_temp:float
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	biome = Globals.Biomes["default"]
+	biome = Globals.Biomes["Ocean"]
 	#random_biome()
-	update_color()
-	update_food(biome[BIOME_BASE_FOOD])
+	update()
 
 
 func random_biome():
@@ -43,8 +45,7 @@ func random_biome():
 	while key == "default":
 		key = keys.pick_random()
 	biome = Globals.Biomes[key]
-	update_color()
-	update_food(biome[BIOME_BASE_FOOD])
+	update()
 	biome_hash = biome.hash()
 
 
@@ -61,6 +62,10 @@ func update():
 			$Sprites/Jungle.visible = true
 		"Woods":
 			$Sprites/Forest.visible = true
+		"Taiga":
+			$Sprites/Forest.visible = true
+	biome_hash = biome.hash()
+	$Control/Label.text = str(precip)
 
 func update_food(food_amount:float):
 	food = food_amount

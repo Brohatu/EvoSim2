@@ -1,9 +1,9 @@
 TODO:
 	BIOMES:
-		Add Polar
 		Add Tundra
 		Add Taiga
 	GENERATION:
 		Calculate biomes using precipitation
 		Work out continents
+			Fewer seed blobs, but a second set of blobs generates within range of the seeds
 		Calculate rivers

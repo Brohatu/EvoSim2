@@ -1,20 +1,20 @@
-[gd_scene load_steps=3 format=3 uid="uid://wq4n8qc3x8fi"]
+[gd_scene load_steps=5 format=3 uid="uid://wq4n8qc3x8fi"]
 
 [ext_resource type="Script" path="res://Main.gd" id="1_a2hjs"]
 [ext_resource type="PackedScene" uid="uid://gh8i4kcgbur7" path="res://scenes/world/world.tscn" id="2_sctux"]
+[ext_resource type="Script" path="res://scenes/MainCamera.gd" id="3_qk4nk"]
+[ext_resource type="PackedScene" uid="uid://bsluncbi83ari" path="res://scenes/ui.tscn" id="4_lud6y"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_a2hjs")
 
 [node name="World" parent="." instance=ExtResource("2_sctux")]
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(3411, 1947)
-scale = Vector2(51.4869, 44.9625)
-zoom = Vector2(0.2, 0.2)
+[node name="MainCamera" type="Camera2D" parent="."]
+position = Vector2(1312, 1176)
+zoom = Vector2(0.33, 0.33)
+script = ExtResource("3_qk4nk")
 
-[node name="Button" type="Button" parent="."]
-offset_right = 144.0
-offset_bottom = 123.0
+[node name="Control" parent="." instance=ExtResource("4_lud6y")]
 
-[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="generate" from="Control" to="." method="_on_control_generate"]

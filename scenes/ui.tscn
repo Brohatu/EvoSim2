@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://bsluncbi83ari"]
+
+[ext_resource type="Script" path="res://scenes/ui.gd" id="1_7jrvd"]
+
+[node name="Control" type="CanvasLayer"]
+script = ExtResource("1_7jrvd")
+
+[node name="Generate" type="Button" parent="."]
+offset_right = 88.0
+offset_bottom = 67.0
+text = "Generate"
+
+[connection signal="pressed" from="Generate" to="." method="_on_button_pressed"]
