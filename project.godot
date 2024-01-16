@@ -22,6 +22,8 @@ Globals="*res://globals.gd"
 [display]
 
 window/size/viewport_height=900
+window/size/mode=2
+window/size/initial_position_type=2
 
 [input]
 

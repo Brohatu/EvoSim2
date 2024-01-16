@@ -13,6 +13,7 @@ class_name Tile
 	#Woods,
 	#Rainforest
 #}
+signal move_camera(pos:Vector2)
 
 const BIOME_ID = 0
 const BIOME_NAME = 1
@@ -20,8 +21,15 @@ const BIOME_COLOR = 2
 const BIOME_BASE_FOOD = 3
 const BIOME_RAINFALL = 4
 
+enum Region {
+	Polar,
+	Temperate,
+	Dry,
+	Tropic
+}
 
 var id:Vector2i
+var region:Region
 var biome_hash:int = 0
 var temp:float
 var biome:Array
@@ -31,12 +39,25 @@ var precip:float = 0.0
 # used to hold the new precip value while the remaining tiles on the map have
 # their precip calculated
 var precip_temp:float
+var has_river:bool = false
+var river_size:int = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	biome = Globals.Biomes["Ocean"]
 	#random_biome()
 	update()
+
+
+func reset():
+	biome_hash = 0
+	temp = 0.0
+	precip = 0.0
+	biome = Globals.Biomes["Ocean"]
+	has_river = false
+	river_size = 0
+	update()
+
 
 
 func random_biome():
@@ -50,6 +71,9 @@ func random_biome():
 
 
 func update():
+	if has_river:
+		precip += 5 * river_size
+		$Control/River.text = "R: " + str(river_size)
 	update_food(biome[BIOME_BASE_FOOD])
 	update_color()
 	var sprites = $Sprites.get_children()
@@ -64,8 +88,10 @@ func update():
 			$Sprites/Forest.visible = true
 		"Taiga":
 			$Sprites/Forest.visible = true
+		"Scrubland":
+			$Sprites/Scrubland.visible = true
 	biome_hash = biome.hash()
-	$Control/Label.text = str(precip)
+	$Control/Precipitation.text = str(precip)
 
 func update_food(food_amount:float):
 	food = food_amount
@@ -73,6 +99,27 @@ func update_food(food_amount:float):
 func update_color():
 	$Sprite2D.modulate = biome[BIOME_COLOR]
 
+
+func determine_biome(temp_region):
+	if temp_region < Globals.POLAR_N or temp_region > Globals.POLAR_S:
+		region = Region.Polar
+	elif temp_region < Globals.TEMPERATE_N or temp_region > Globals.TEMPERATE_S:
+		region = Region.Temperate
+	elif temp_region < Globals.DRY_N or temp_region > Globals.DRY_S:
+		region = Region.Dry
+	else:
+		temp_region = Region.Tropic
+	match region:
+		Region.Polar:
+			biome = Globals.Biomes["Polar"]
+		Region.Temperate:
+			biome = Globals.Biomes["Woods"]
+		Region.Dry:
+			biome = Globals.Biomes["Grassland"]
+		Region.Tropic:
+			biome = Globals.Biomes["Rainforest"]
+		_:
+			biome = Globals.Biomes["Default"]
 
 ## get list of keys
 ## find current key
@@ -92,3 +139,5 @@ func _on_input_event(_viewport, event, _shape_idx):
 				new_biome = Globals.Biomes[keys[1]]
 			biome = new_biome
 			update()
+		if event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+			move_camera.emit(get_global_mouse_position())

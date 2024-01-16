@@ -8,6 +8,18 @@
 
 extends Node
 
+const POLAR_N = 0.1
+const POLAR_S = 0.9
+
+const TEMPERATE_N = 0.3
+const TEMPERATE_S = 0.7
+
+const DRY_N = 0.4
+const DRY_S = 0.6
+
+#const TROPICAL = 0.6
+
+
 # Id, Name, Color, Base_Food, Avg_Rainfall(mm)
 var Biomes = {
 	"Default" : [-1, "Default", Color(0,0,0), 0.0, 0.0],
@@ -19,10 +31,15 @@ var Biomes = {
 	"Rainforest" : [5, "Rainforest", Color(0.0, 0.35, 0.0), 100.0, 6000.0],
 	"Polar": [6, "Polar", Color(1.0, 1.0, 1.0), 10.0, 0.0],
 	# steppe: grassland next to polar
+	"Steppe": [7, "Steppe", Color(0.56, 0.61, 0.41), 30.0, 0.0],
 	# swamp: grassland next to lots of water or rainforest
 	# taiga: woods next to polar
-	"Taiga" : [9, "Taiga", Color(1.0,1.0,1.0), 60.0, 1000.0]
+	"Taiga" : [9, "Taiga", Color(1.0,1.0,1.0), 60.0, 1000.0],
+	"Scrubland" : [10, "Scrubland", Color(0,0.8,0.4), 30, 450.0]
 }
+
+
+
 
 enum Biome_ID {
 	DEFAULT = -1,

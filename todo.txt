@@ -1,9 +1,17 @@
 TODO:
 	BIOMES:
-		Add Tundra
-		Add Taiga
+	
 	GENERATION:
 		Calculate biomes using precipitation
 		Work out continents
 			Fewer seed blobs, but a second set of blobs generates within range of the seeds
+			Mountains generate where continents overlap
 		Calculate rivers
+		assign biome in tile update method inside tile
+	CREATURES:
+		Basic movement
+		Basic feeding
+		Basic breeding
+	UI:
+		update precip button
+		update biomes button

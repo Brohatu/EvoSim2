@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 
-
+@export var genes:Genes
 
 func move(target:Vector2):
 	var move_dir:Vector2 = target - global_position

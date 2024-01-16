@@ -11,7 +11,7 @@ script = ExtResource("1_a2hjs")
 [node name="World" parent="." instance=ExtResource("2_sctux")]
 
 [node name="MainCamera" type="Camera2D" parent="."]
-position = Vector2(2807, 1414)
+position = Vector2(2830, 1968)
 zoom = Vector2(0.25, 0.25)
 script = ExtResource("3_qk4nk")
 

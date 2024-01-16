@@ -4,9 +4,12 @@
 
 [resource]
 script = ExtResource("1_7st27")
-dimensions = Vector2i(50, 20)
-land_seeds = 200
-mountain_seeds = 10
-rain_dropoff = 0.2
-forest_precip = 15.0
-grassland_precip = 5
+dimensions = Vector2i(50, 30)
+land_seeds = 20
+continent_spread = 5
+mountain_seeds = 15
+rain_dropoff = 0.16
+forest_precip = 20.0
+grassland_precip = 2
+tropic_factor = 0.5
+dry_factor = 1.3
