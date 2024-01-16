@@ -28,7 +28,7 @@ const TROPICAL = 0.6
 var tiles:Array
 var build_arr:Array
 var mountains:Array
-var rivers:Array
+@export var rivers:Array
 
 var pol_n 
 var temp_n 
@@ -40,7 +40,9 @@ var pol_s
 
 func reset():
 	for t in tiles:
-		t.reset()
+		queue_free()
+	generate_new_world()
+	generate_world_terrain()
 
 
 
@@ -88,7 +90,6 @@ func generate_world_terrain():
 func generate_terrain_new():
 	# 0) create new build array with all tiles inside. Erase them from build_arr once they are finished generating
 	build_arr = []
-	print("placing landmasses")
 	
 	# 1) determine whether tile is land or ocean
 	print("placing landmasses")
@@ -112,18 +113,18 @@ func generate_terrain_new():
 	print("generating rivers")
 	generate_rivers()
 	print("generating rivers complete")
-	print("generating rainfall")
-	generate_precipitation()
-	print("generating rainfall complete")
-	
-	# 5) apply appropriate terrain based on conditions
-	print("calculating biomes")
-	generate_biomes()
-	print("calculating biomes complete")
-	# 6) adjust biomes according to neighbouring tiles
-	print("adjusting")
-	adjust_biomes()
-	print("adjusting complete")
+	#print("generating rainfall")
+	#generate_precipitation()
+	#print("generating rainfall complete")
+	#
+	## 5) apply appropriate terrain based on conditions
+	#print("calculating biomes")
+	#generate_biomes()
+	#print("calculating biomes complete")
+	## 6) adjust biomes according to neighbouring tiles
+	#print("adjusting")
+	#adjust_biomes()
+	#print("adjusting complete")
 
 
 
@@ -212,11 +213,14 @@ func walk_mountain(mountain:Tile, counter:int):
 
 
 func generate_rivers():
-	for m:Tile in mountains:
+	for i in range(0, parameters.mountain_seeds * 3):
+		var m = mountains.pick_random()
+		while m.has_river:
+			m = mountains.pick_random()
 		var neighbours = m.get_overlapping_areas()
 		if neighbours.filter(func(neighbour) : return neighbour.biome[BIOME_ID] != Globals.Biome_ID.MOUNTAIN):
 			var new_river = River.new()
-			new_river.step(m)
+			new_river.step_new(m,null)
 			rivers.append(new_river)
 	for r:River in rivers:
 		for t:Tile in r.river_tiles:
@@ -253,6 +257,8 @@ func generate_precipitation():
 			t.update()
 			rain_tiles.erase(t)
 		elif t.biome[BIOME_ID] == Globals.Biome_ID.MOUNTAIN:
+			t.precip = 1.0
+			t.update()
 			rain_tiles.erase(t)
 	print("generating ocean rainfall complete")
 	
@@ -287,8 +293,8 @@ func generate_precipitation():
 		for t:Tile in tiles:
 			if rain_tiles.has(t):
 				if t.precip_temp != 0:
-					t.precip = t.precip_temp
-					t.precip_temp = 0
+					t.precip += t.precip_temp
+					#t.precip_temp = 0
 					rain_tiles.erase(t)
 				t.update()
 	print("generating inland rainfall complete")

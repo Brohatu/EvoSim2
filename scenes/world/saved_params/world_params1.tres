@@ -10,6 +10,6 @@ continent_spread = 5
 mountain_seeds = 15
 rain_dropoff = 0.16
 forest_precip = 20.0
-grassland_precip = 2
+grassland_precip = 5
 tropic_factor = 0.5
 dry_factor = 1.3

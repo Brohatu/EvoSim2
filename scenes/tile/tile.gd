@@ -1,6 +1,7 @@
-# Mounain sprite: https://pixelartmaker-data-78746291193.nyc3.digitaloceanspaces.com/image/8b6adcaddffab6b.png
+# Mountain sprite: https://pixelartmaker-data-78746291193.nyc3.digitaloceanspaces.com/image/8b6adcaddffab6b.png
 # Jungle tree sprite: https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/693c2b0f-957e-4b54-9677-2a06fc5ac5b5/d6bhqqv-51bdf853-d469-4260-9126-37eff0cb6431.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwic3ViIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsImF1ZCI6WyJ1cm46c2VydmljZTpmaWxlLmRvd25sb2FkIl0sIm9iaiI6W1t7InBhdGgiOiIvZi82OTNjMmIwZi05NTdlLTRiNTQtOTY3Ny0yYTA2ZmM1YWM1YjUvZDZiaHFxdi01MWJkZjg1My1kNDY5LTQyNjAtOTEyNi0zN2VmZjBjYjY0MzEucG5nIn1dXX0.oxzSG-F0P2ytIpjDWpSK-syBW3dx2jhidj3fyG4quXM
 # Fir tree sprite: https://opengameart.org/sites/default/files/pine-tree-isaiah658-bigger-preview.png
+# river sprite:https://pixelartmaker-data-78746291193.nyc3.digitaloceanspaces.com/image/34d15e33bfd5c4c.png
 extends Area2D
 
 class_name Tile
@@ -71,11 +72,10 @@ func random_biome():
 
 
 func update():
-	if has_river:
-		precip += 5 * river_size
-		$Control/River.text = "R: " + str(river_size)
+	
 	update_food(biome[BIOME_BASE_FOOD])
 	update_color()
+	
 	var sprites = $Sprites.get_children()
 	for s in sprites:
 		s.visible = false
@@ -90,6 +90,16 @@ func update():
 			$Sprites/Forest.visible = true
 		"Scrubland":
 			$Sprites/Scrubland.visible = true
+		"Polar":
+			#for child in $Control.get_children():
+				#child.theme_override_colors/font_shadow
+			pass
+	if has_river:
+		precip += 5 * river_size
+		$Control/River.text = "R: " + str(river_size)
+		$Sprites/River.visible = true
+	else:
+		$Control/River.text = ""
 	biome_hash = biome.hash()
 	$Control/Precipitation.text = str(precip)
 

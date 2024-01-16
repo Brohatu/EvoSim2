@@ -10,5 +10,3 @@ old_gen = false
 
 [node name="Tiles" type="Node2D" parent="."]
 scale = Vector2(0.2, 0.2)
-
-[node name="Rivers" type="Node2D" parent="."]
