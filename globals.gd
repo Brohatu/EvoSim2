@@ -19,24 +19,29 @@ const DRY_S = 0.6
 
 #const TROPICAL = 0.6
 
+var river_counter = 0
 
-# Id, Name, Color, Base_Food, Avg_Rainfall(mm)
+# Id, Name, Color, Base_Food,
 var Biomes = {
-	"Default" : [-1, "Default", Color(0,0,0), 0.0, 0.0],
-	"Grassland" : [0, "Grassland", Color(0.46, 0.81, 0.24), 100.0, 700.0],
-	"Desert" : [1, "Desert", Color(0.94, 0.89, 0.69), 10.0, 250.0],
-	"Ocean" : [2, "Ocean", Color(0.15, 0.29, 0.60), 50.0, 0.0],
-	"Mountain" : [3, "Mountain", Color(0.5, 0.5, 0.5), 50.0, 600.0], 
-	"Woods" : [4, "Woods", Color(0.0, 0.5, 0.25), 100.0, 1000.0],
-	"Rainforest" : [5, "Rainforest", Color(0.0, 0.35, 0.0), 100.0, 6000.0],
-	"Polar": [6, "Polar", Color(1.0, 1.0, 1.0), 10.0, 0.0],
-	# steppe: grassland next to polar
-	"Steppe": [7, "Steppe", Color(0.56, 0.61, 0.41), 30.0, 0.0],
-	# swamp: grassland next to lots of water or rainforest
-	# taiga: woods next to polar
-	"Taiga" : [9, "Taiga", Color(1.0,1.0,1.0), 60.0, 1000.0],
-	"Scrubland" : [10, "Scrubland", Color(0,0.8,0.4), 30, 450.0]
+	"Default" : [-1, "Default", Color(0,0,0), 0.0],
+	"Grassland" : [0, "Grassland", Color(0.46, 0.81, 0.24), 100.0],
+	"Desert" : [1, "Desert", Color(0.94, 0.89, 0.69), 1.0],
+	"Ocean" : [2, "Ocean", Color(0.15, 0.29, 0.60), 0.0],
+	"Mountain" : [3, "Mountain", Color(0.5, 0.5, 0.5), 1.0], 
+	"Woods" : [4, "Woods", Color(0.0, 0.5, 0.25), 100.0],
+	"Rainforest" : [5, "Rainforest", Color(0.0, 0.35, 0.0), 100.0],
+	"Polar": [6, "Polar", Color(1.0, 1.0, 1.0), 1.0],
+	"Steppe": [7, "Steppe", Color(0.56, 0.61, 0.41), 70.0],
+	"Swamp": [8, "Swamp", Color(0.24, 0.38, 0.13), 70.0],
+	"Taiga" : [9, "Taiga", Color(1.0,1.0,1.0), 20.0],
+	"Scrubland" : [10, "Scrubland", Color(0,0.8,0.4), 20.0],
+	"Floodplain" : [11, "Floodplain", Color(0.94, 0.89, 0.69), 70.0]
 }
+# Base_Food currently exists at several distinct levels
+# Trivial access (100.0) - vegetation is abundant: Woods, Rainforest, Grassland
+# Easy access (70.0) - poor quality vegetation is abundant, or high quality vegetation is patchy: Steppe, Swamp, Floodplain
+# Middling access (40.0)- vegetation exists, but isn't great quality: Taiga, Scrubland 
+# Difficult access (10.0) - vegetation is scarce: Desert, Polar, Mountain
 
 
 
@@ -49,7 +54,12 @@ enum Biome_ID {
 	MOUNTAIN,
 	WOODS,
 	RAINFOREST,
-	POLAR
+	POLAR,
+	STEPPE,
+	SWAMP,
+	TAIGA,
+	SCRUBLAND,
+	FLOODPLAIN
 }
 
 #var Biome = {

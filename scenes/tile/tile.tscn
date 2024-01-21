@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dk2ih5504dpah"]
+[gd_scene load_steps=8 format=3 uid="uid://dk2ih5504dpah"]
 
 [ext_resource type="Script" path="res://scenes/tile/tile.gd" id="1_37p6o"]
 [ext_resource type="Texture2D" uid="uid://bqj7u5p6vgvo3" path="res://resources/hex2.png" id="2_d3g2t"]
@@ -6,12 +6,14 @@
 [ext_resource type="Texture2D" uid="uid://po6qu3jdm182" path="res://resources/pine-tree-isaiah658-bigger-preview.png" id="5_1fsmo"]
 [ext_resource type="Texture2D" uid="uid://b657vj6l7bk2g" path="res://resources/jungle_tree_big.png" id="5_07xsg"]
 [ext_resource type="Texture2D" uid="uid://dylf5x8ht73ku" path="res://resources/34d15e33bfd5c4c.png" id="6_ao7bm"]
+[ext_resource type="Texture2D" uid="uid://h657iiqs3ue3" path="res://resources/beautiful-mangrove-tree-illustrations-vector.png" id="7_epocw"]
 
 [node name="Tile" type="Area2D" groups=["Tiles"]]
-scale = Vector2(1.01, 1.01)
+scale = Vector2(1.02, 1.02)
 script = ExtResource("1_37p6o")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.239216, 0.380392, 0.129412, 1)
 rotation = 0.523599
 texture = ExtResource("2_d3g2t")
 
@@ -126,7 +128,26 @@ position = Vector2(-58.4158, 27.7228)
 scale = Vector2(0.368812, 0.346595)
 texture = ExtResource("5_1fsmo")
 
+[node name="Swamp" type="Node2D" parent="Sprites"]
+visible = false
+
+[node name="Sprite2D" type="Sprite2D" parent="Sprites/Swamp"]
+position = Vector2(60.7843, -78.4314)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("7_epocw")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Sprites/Swamp"]
+position = Vector2(26.4706, 77.451)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("7_epocw")
+
+[node name="Sprite2D3" type="Sprite2D" parent="Sprites/Swamp"]
+position = Vector2(-62.7451, -37.2549)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("7_epocw")
+
 [node name="Control" type="VBoxContainer" parent="."]
+visible = false
 z_index = 1
 custom_minimum_size = Vector2(10, 10)
 anchors_preset = 8
@@ -156,4 +177,10 @@ theme_override_font_sizes/font_size = 60
 text = "PRECIP"
 horizontal_alignment = 1
 
+[node name="ID" type="Label" parent="Control"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+
 [connection signal="input_event" from="." to="." method="_on_input_event"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

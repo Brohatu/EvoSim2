@@ -18,7 +18,7 @@ script = ExtResource("3_qk4nk")
 [node name="UI" parent="." instance=ExtResource("4_lud6y")]
 
 [node name="TurnTimer" type="Timer" parent="."]
-wait_time = 0.1
+wait_time = 0.5
 
 [node name="Creatures" type="Node2D" parent="."]
 

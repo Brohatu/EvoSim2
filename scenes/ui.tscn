@@ -1,13 +1,199 @@
-[gd_scene load_steps=2 format=3 uid="uid://bsluncbi83ari"]
+[gd_scene load_steps=3 format=3 uid="uid://bsluncbi83ari"]
 
 [ext_resource type="Script" path="res://scenes/ui.gd" id="1_7jrvd"]
+[ext_resource type="Texture2D" uid="uid://clk6cly3ge8c7" path="res://icon.svg" id="2_dn4sh"]
 
-[node name="Control" type="CanvasLayer"]
+[node name="UI" type="CanvasLayer"]
 script = ExtResource("1_7jrvd")
 
-[node name="Generate" type="Button" parent="."]
-offset_right = 88.0
-offset_bottom = 67.0
+[node name="Buttons" type="VBoxContainer" parent="."]
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 80.0
+grow_vertical = 2
+
+[node name="Generate" type="Button" parent="Buttons"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
 text = "Generate"
 
-[connection signal="pressed" from="Generate" to="." method="_on_button_pressed"]
+[node name="Start" type="Button" parent="Buttons"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+text = "Start Sim"
+
+[node name="Pause" type="Button" parent="Buttons"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+text = "Pause Sim"
+
+[node name="Debug" type="CheckButton" parent="Buttons"]
+layout_mode = 2
+text = "Debug"
+
+[node name="Header" type="MarginContainer" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -37.5
+offset_right = 37.5
+offset_bottom = 49.0
+grow_horizontal = 2
+theme_override_constants/margin_top = 14
+
+[node name="ColorRect" type="ColorRect" parent="Header"]
+layout_mode = 2
+color = Color(0.176471, 0.176471, 0.176471, 0.392157)
+
+[node name="TurnCounter" type="Label" parent="Header"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Turn: 0"
+
+[node name="Data" type="VBoxContainer" parent="."]
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="CreatureDataContainer" type="MarginContainer" parent="Data"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 0
+
+[node name="ColorRect2" type="ColorRect" parent="Data/CreatureDataContainer"]
+layout_mode = 2
+color = Color(0.176471, 0.176471, 0.176471, 0.392157)
+
+[node name="CreatureData" type="VBoxContainer" parent="Data/CreatureDataContainer"]
+layout_mode = 2
+
+[node name="SpritePlaceholder" type="TextureRect" parent="Data/CreatureDataContainer/CreatureData"]
+layout_mode = 2
+texture = ExtResource("2_dn4sh")
+
+[node name="Age" type="HBoxContainer" parent="Data/CreatureDataContainer/CreatureData"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Data/CreatureDataContainer/CreatureData/Age"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Age:"
+
+[node name="Val" type="Label" parent="Data/CreatureDataContainer/CreatureData/Age"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "0"
+
+[node name="Diet" type="HBoxContainer" parent="Data/CreatureDataContainer/CreatureData"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Data/CreatureDataContainer/CreatureData/Diet"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Diet:"
+
+[node name="Val" type="Label" parent="Data/CreatureDataContainer/CreatureData/Diet"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "0"
+
+[node name="Size" type="HBoxContainer" parent="Data/CreatureDataContainer/CreatureData"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Data/CreatureDataContainer/CreatureData/Size"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Size:"
+
+[node name="Val" type="Label" parent="Data/CreatureDataContainer/CreatureData/Size"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "0"
+
+[node name="Hunger" type="HBoxContainer" parent="Data/CreatureDataContainer/CreatureData"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Data/CreatureDataContainer/CreatureData/Hunger"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Hunger:"
+
+[node name="Val" type="Label" parent="Data/CreatureDataContainer/CreatureData/Hunger"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "0"
+
+[node name="TileDataContainer" type="MarginContainer" parent="Data"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="ColorRect" type="ColorRect" parent="Data/TileDataContainer"]
+layout_mode = 2
+color = Color(0.176471, 0.176471, 0.176471, 0.392157)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Data/TileDataContainer"]
+layout_mode = 2
+
+[node name="Biome" type="HBoxContainer" parent="Data/TileDataContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Data/TileDataContainer/VBoxContainer/Biome"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Biome:"
+
+[node name="Val" type="Label" parent="Data/TileDataContainer/VBoxContainer/Biome"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "0"
+
+[node name="Vegetation" type="HBoxContainer" parent="Data/TileDataContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Data/TileDataContainer/VBoxContainer/Vegetation"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Vege:"
+
+[node name="Val" type="Label" parent="Data/TileDataContainer/VBoxContainer/Vegetation"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "0"
+
+[node name="Meat" type="HBoxContainer" parent="Data/TileDataContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Data/TileDataContainer/VBoxContainer/Meat"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Meat:"
+
+[node name="Val" type="Label" parent="Data/TileDataContainer/VBoxContainer/Meat"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "0"
+
+[node name="River" type="HBoxContainer" parent="Data/TileDataContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Data/TileDataContainer/VBoxContainer/River"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "River:"
+
+[node name="Val" type="Label" parent="Data/TileDataContainer/VBoxContainer/River"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "0"
+
+[connection signal="pressed" from="Buttons/Generate" to="." method="_on_generate_pressed"]
+[connection signal="pressed" from="Buttons/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="Buttons/Pause" to="." method="_on_pause_pressed"]

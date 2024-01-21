@@ -2,12 +2,18 @@ TODO:
 	BIOMES:
 	
 	GENERATION:
-		Calculate biomes using precipitation
+		DONE: Calculate biomes using precipitation
+		Introduce altitude var to Tile
+		Update precipitation algorithm
+			DONE: Fix infinite loop
 		Work out continents
-			Fewer seed blobs, but a second set of blobs generates within range of the seeds
+			DONE: Fewer seed blobs, but a second set of blobs generates within range of the seeds
 			Mountains generate where continents overlap
 		Calculate rivers
-		assign biome in tile update method inside tile
+			DONE: Fix bug where rivers don't avoid mountains
+			DONE: make river tile derive from Tile and give it source and sink
+		assign biome in tile update method inside tile*
+		add set_biome method to tile.gd
 	CREATURES:
 		Basic movement
 		Basic feeding
