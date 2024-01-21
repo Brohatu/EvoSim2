@@ -21,3 +21,8 @@ TODO:
 	UI:
 		update precip button
 		update biomes button
+		debug switch functionality
+		fix sprite stretching in data box
+	TILES:
+		Update plant growth system:
+			resize sprite as function of plant amount

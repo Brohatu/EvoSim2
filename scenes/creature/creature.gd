@@ -12,7 +12,10 @@ var location:Tile:
 	set(val):
 		location = val
 		global_position = val.global_position
+
 var hunger:float = 50.0
+var thirst:float = 50.0
+
 @export var age:int = 0
 var highlighted:bool = false
 
@@ -23,12 +26,40 @@ func _process(_delta):
 	if Input.is_action_just_pressed("select") and highlighted:
 		creature_data.emit(self)
 
+
+#Turn start:
+
+	#determine highest priority need (water, food, sex)
+	#if water:
+		#if river or coast:
+			#drink()
+		#else:
+			#target = check_adjacent(water)
+			#move(target)
+	#elif food:
+		#if food_available:
+			#eat()
+		#else:
+			#target = check_adjacent(food)
+			#move(target)
+	#elif sex:
+		#signal_available()
+		#if mate_available:
+			#mate()
+		#else:
+			#target = check_adjacent(signal)
+			#move(signal)
+
 func process_turn():
 	age += 1
+	# check death conditions
 	if hunger > 100.0:
 		die()
 	if age >= genes.lifespan:
 		die()
+		
+		
+	
 	if age >= genes.sexual_maturity and hunger < 30:
 		reproduce()
 		

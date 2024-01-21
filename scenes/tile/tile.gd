@@ -103,6 +103,8 @@ func _process(_delta):
 func process_turn():
 	if vegetation < vegetation_max:
 		vegetation += min(vegetation_max/50.0, vegetation_max - vegetation)
+		if biome_name == "Woods" or biome_name == "Taiga":
+			$Sprites/Forest.scale = Vector2.ONE * vegetation/vegetation_max
 	if carrion > 0.0:
 		carrion -= min(1.0, carrion)
 
@@ -154,11 +156,11 @@ func update():
 			$Sprites/Mountains.visible = true
 		"Rainforest":
 			$Sprites/Jungle.visible = true
-			for i in range(0, $Sprites/Jungle.get_child_count()/max(vegetation_max - vegetation,0.0001)):
-				$Sprites/Jungle.get_child(i).visible = false
 		"Woods":
+			$Sprites/Forest.scale = Vector2.ONE * vegetation/vegetation_max
 			$Sprites/Forest.visible = true
 		"Taiga":
+			$Sprites/Forest.scale = Vector2.ONE * vegetation/vegetation_max
 			$Sprites/Forest.visible = true
 		"Floodplain":
 			$Sprites/Scrubland.visible = true

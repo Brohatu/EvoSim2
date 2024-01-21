@@ -1,0 +1,21 @@
+Turn start:
+	determine highest priority need (water, food, sex)
+	if water:
+		if river or coast:
+			drink()
+		else:
+			target = check_adjacent(water)
+			move(target)
+	elif food:
+		if food_available:
+			eat()
+		else:
+			target = check_adjacent(food)
+			move(target)
+	elif sex:
+		signal_available()
+		if mate_available:
+			mate()
+		else:
+			target = check_adjacent(signal)
+			move(signal)
