@@ -1,0 +1,18 @@
+Precipitation
+	Latitude
+	Altitude
+	Proximity to water
+
+
+Biome:
+	[Temperature,
+	Precipitation]
+	
+Trop RForest	[>= 20,  >= 300]
+Savanna			[>= 20,  >= 50]
+Temp RForest	[>= 5, 	 >= 200]
+Decid Forest	[>= 5, 	 >= 100]
+Taiga			[>= -5,  >= 50]
+Grassland		[>= 5, 	 >= 25]
+Desert			[>= -5,  >= 0]
+Tundra			[>= -30, >= 0]

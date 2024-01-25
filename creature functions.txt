@@ -1,0 +1,22 @@
+Stats
+	Mass 
+	speed
+	perception
+	
+	food need
+	water need
+	love need
+
+baseActivityLevel = speed^1.5
+activityLevel = baseActivityLevel + perception
+
+baseMetabolicRate = mass^(0.75)
+normaliser = 9000
+metabolicRate = baseMetabolicRate * activityLevel / normaliser
+
+dietModifier = #carnivores get hungry slower
+
+food need = y per tick
+water need = 2 * food need
+
+
