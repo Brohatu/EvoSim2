@@ -28,10 +28,15 @@ func reset():
 
 func update():
 	if c:
+		$Data/CreatureDataContainer/CreatureData/Location/Val.text = str(c.location.id.x, c.location.id.y)
 		$Data/CreatureDataContainer/CreatureData/Age/Val.text = str(c.age)
+		$Data/CreatureDataContainer/CreatureData/Sex/Val.text = "Female" if c.genes.female else "Male"
 		$Data/CreatureDataContainer/CreatureData/Diet/Val.text = str(c.genes.diet)
 		$Data/CreatureDataContainer/CreatureData/Size/Val.text = str(c.genes.size)
 		$Data/CreatureDataContainer/CreatureData/Hunger/Val.text = str(c.hunger)
+		$Data/CreatureDataContainer/CreatureData/Horny/Val.text = str(c.horniness)
+		$Data/CreatureDataContainer/CreatureData/Pregnant/Val.text = "Yes" if c.pregnant[0] else "No"
+		$Data/CreatureDataContainer/CreatureData/Action/Val.text = c.Action.keys()[c.action]
 		#location
 		if c.hunger > 100.0 or c.age > c.genes.lifespan:
 			c = null
@@ -47,10 +52,15 @@ func update():
 
 func display_creature(creature:Creature):
 	c = creature
+	$Data/CreatureDataContainer/CreatureData/Location/Val.text = str(c.location.id.x, c.location.id.y)
 	$Data/CreatureDataContainer/CreatureData/Age/Val.text = str(c.age)
+	$Data/CreatureDataContainer/CreatureData/Sex/Val.text = "Female" if c.genes.female else "Male"
 	$Data/CreatureDataContainer/CreatureData/Diet/Val.text = str(c.genes.diet)
 	$Data/CreatureDataContainer/CreatureData/Size/Val.text = str(c.genes.size)
 	$Data/CreatureDataContainer/CreatureData/Hunger/Val.text = str(c.hunger)
+	$Data/CreatureDataContainer/CreatureData/Horny/Val.text = str(c.horniness)
+	$Data/CreatureDataContainer/CreatureData/Pregnant/Val.text = "Yes" if c.pregnant[0] else "No"
+	$Data/CreatureDataContainer/CreatureData/Action/Val.text = c.Action.keys()[c.action]
 
 	
 func display_tile(tile:Tile):

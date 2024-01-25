@@ -72,9 +72,25 @@ color = Color(0.176471, 0.176471, 0.176471, 0.392157)
 [node name="CreatureData" type="VBoxContainer" parent="Data/CreatureDataContainer"]
 layout_mode = 2
 
-[node name="SpritePlaceholder" type="TextureRect" parent="Data/CreatureDataContainer/CreatureData"]
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="Data/CreatureDataContainer/CreatureData"]
+layout_mode = 2
+
+[node name="SpritePlaceholder" type="TextureRect" parent="Data/CreatureDataContainer/CreatureData/AspectRatioContainer"]
 layout_mode = 2
 texture = ExtResource("2_dn4sh")
+
+[node name="Location" type="HBoxContainer" parent="Data/CreatureDataContainer/CreatureData"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Data/CreatureDataContainer/CreatureData/Location"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Tile:"
+
+[node name="Val" type="Label" parent="Data/CreatureDataContainer/CreatureData/Location"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "0,0"
 
 [node name="Age" type="HBoxContainer" parent="Data/CreatureDataContainer/CreatureData"]
 layout_mode = 2
@@ -88,6 +104,18 @@ text = "Age:"
 layout_mode = 2
 size_flags_horizontal = 2
 text = "0"
+
+[node name="Sex" type="HBoxContainer" parent="Data/CreatureDataContainer/CreatureData"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Data/CreatureDataContainer/CreatureData/Sex"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Sex:"
+
+[node name="Val" type="Label" parent="Data/CreatureDataContainer/CreatureData/Sex"]
+layout_mode = 2
+size_flags_horizontal = 2
 
 [node name="Diet" type="HBoxContainer" parent="Data/CreatureDataContainer/CreatureData"]
 layout_mode = 2
@@ -127,6 +155,44 @@ text = "Hunger:"
 layout_mode = 2
 size_flags_horizontal = 2
 text = "0"
+
+[node name="Horny" type="HBoxContainer" parent="Data/CreatureDataContainer/CreatureData"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Data/CreatureDataContainer/CreatureData/Horny"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Horny"
+
+[node name="Val" type="Label" parent="Data/CreatureDataContainer/CreatureData/Horny"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "0"
+
+[node name="Pregnant" type="HBoxContainer" parent="Data/CreatureDataContainer/CreatureData"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Data/CreatureDataContainer/CreatureData/Pregnant"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Pregnant:"
+
+[node name="Val" type="Label" parent="Data/CreatureDataContainer/CreatureData/Pregnant"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "No"
+
+[node name="Action" type="HBoxContainer" parent="Data/CreatureDataContainer/CreatureData"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Data/CreatureDataContainer/CreatureData/Action"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Action:"
+
+[node name="Val" type="Label" parent="Data/CreatureDataContainer/CreatureData/Action"]
+layout_mode = 2
+size_flags_horizontal = 2
 
 [node name="TileDataContainer" type="MarginContainer" parent="Data"]
 layout_mode = 2
