@@ -44,8 +44,8 @@ var highlighted:bool = false
 
 ## Food vars
 # Plants
-var vegetation_max:float
-var vegetation:float = 0.0
+var vegetation_max:int
+var vegetation:int = 0
 
 # Meat
 var carrion:float = 0.0
@@ -72,10 +72,15 @@ var requested_vegetation:float
 var requested_meat:float
 
 
+## Creature vars
+var scent_male:int = 0
+var scent_female:int = 0
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	biome = Globals.Biomes["Ocean"]
 	vegetation_max = biome[BIOME_BASE_FOOD]
+	vegetation = vegetation_max
 	#random_biome()
 	$Control/ID.text = str(id.x) + ", " + str(id.y)
 	update()
@@ -102,11 +107,16 @@ func _process(_delta):
 
 func process_turn():
 	if vegetation < vegetation_max:
-		vegetation += min(vegetation_max/50.0, vegetation_max - vegetation)
-		if biome_name == "Woods" or biome_name == "Taiga":
-			$Sprites/Forest.scale = Vector2.ONE * vegetation/vegetation_max
-	if carrion > 0.0:
-		carrion -= min(1.0, carrion)
+		vegetation += 1
+		match biome_name:
+			"Mountain":
+				pass
+			_:
+				$Sprites/Vegetation.scale = Vector2.ONE * vegetation/vegetation_max
+				
+		
+	if carrion > 0:
+		carrion -= min(1, carrion)
 
 
 
@@ -122,6 +132,14 @@ func food_request(_c:Creature):
 		requested_meat += _c.genes.food_need
 
 
+func get_creatures():
+	var creatures = get_overlapping_areas().filter(func(c): return c.collision_layer == 2)
+	return creatures
+
+func get_overlapping_tiles() -> Array:
+	var tiles = get_overlapping_areas().filter(func(t): return t.collision_layer == 1)
+	return tiles
+
 func reset():
 	biome_name = ""
 	temp = 0.0
@@ -130,6 +148,7 @@ func reset():
 	has_river = false
 	river_size = 0
 	carrion = 0.0
+	vegetation = vegetation_max
 	update()
 
 
@@ -149,37 +168,38 @@ func update():
 	update_color()
 	
 	var sprites = $Sprites.get_children()
-	for s in sprites:
+	for i in range(0,1):
+		sprites[i].visible = false
+	for s in $Sprites/Vegetation.get_children():
 		s.visible = false
 	match biome[BIOME_NAME]:
 		"Mountain":
 			$Sprites/Mountains.visible = true
 		"Rainforest":
-			$Sprites/Jungle.visible = true
+			$Sprites/Vegetation/Jungle.visible = true
 		"Woods":
-			$Sprites/Forest.scale = Vector2.ONE * vegetation/vegetation_max
-			$Sprites/Forest.visible = true
+			$Sprites/Vegetation/Forest.visible = true
 		"Taiga":
-			$Sprites/Forest.scale = Vector2.ONE * vegetation/vegetation_max
-			$Sprites/Forest.visible = true
+			$Sprites/Vegetation/Forest.visible = true
 		"Floodplain":
-			$Sprites/Scrubland.visible = true
+			$Sprites/Vegetation/Scrubland.visible = true
 		"Scrubland":
-			$Sprites/Scrubland.visible = true
+			$Sprites/Vegetation/Scrubland.visible = true
 		"Polar":
 			#for child in $Control.get_children():
 				#child.theme_override_colors/font_shadow
 			pass
 		"Swamp":
-			$Sprites/Swamp.visible = true
+			$Sprites/Vegetation/Swamp.visible = true
 	update_water_volume()
 	biome_name = biome[BIOME_NAME]
 	$Control/Precipitation.text = str(water_access)
 
 
 
-func update_food(food_amount:float):
+func update_food(food_amount):
 	vegetation_max = food_amount
+	vegetation = food_amount
 
 func update_color():
 	$Sprite2D.modulate = biome[BIOME_COLOR]
