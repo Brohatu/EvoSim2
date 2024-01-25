@@ -15,8 +15,8 @@ TODO:
 		assign biome in tile update method inside tile*
 		add set_biome method to tile.gd
 	CREATURES:
-		Basic movement
-		Basic feeding
+		DONE: Basic movement
+		DONE: Basic feeding
 		Basic breeding
 	UI:
 		update precip button
@@ -26,3 +26,5 @@ TODO:
 	TILES:
 		Update plant growth system:
 			resize sprite as function of plant amount
+	MISC:
+		Change values like hunger and food availability from float to int, and rescale appropriately
