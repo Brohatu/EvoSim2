@@ -31,16 +31,17 @@ func _process(_delta):
 func add_new_creature(loc):
 	var new_creature = creature_scene.instantiate() as Creature
 	new_creature.location = loc  
+	new_creature.scale = Vector2(0.3,0.3) * ((new_creature.age+1)/new_creature.genes.sexual_maturity)
 	new_creature.connect("creature_data", display_creature_data)
 	new_creature.connect("birth", reproduce)
 	$Creatures.add_child(new_creature)
 	return new_creature
 
-func reproduce(parent:Creature):
-	var baby:Creature = add_new_creature(parent.location)
-	baby.genes = parent.genes
-	#baby.genes.mutate
-	pass
+func reproduce(baby_genes:Genes, parent_location):
+	var baby:Creature = add_new_creature(parent_location)
+	baby.genes = baby_genes
+	baby.scale = Vector2(0.3,0.3) * (baby.age+1)/baby.genes.sexual_maturity
+	
 
 func generate_world():
 	world.generate_world_tiles()
