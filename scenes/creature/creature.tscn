@@ -7,12 +7,13 @@
 [sub_resource type="Resource" id="Resource_a18uc"]
 script = ExtResource("2_44gmy")
 size = 1.0
-diet = 1.0
-fertility = 0.0
-senses = 0.0
-food_need = 0.0
+diet = 0
+fertility = 0
+senses = 0
+food_need = 0
 lifespan = 1000
 sexual_maturity = 150
+female = true
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vresm"]
 size = Vector2(120, 120)
@@ -30,6 +31,8 @@ texture = ExtResource("1_hnadt")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1.58946e-06, -1.58946e-06)
 shape = SubResource("RectangleShape2D_vresm")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
