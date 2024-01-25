@@ -4,8 +4,8 @@
 
 [resource]
 script = ExtResource("1_7st27")
-dimensions = Vector2i(16, 16)
-land_seeds = 100
+dimensions = Vector2i(24, 24)
+land_seeds = 20
 continent_spread = 3
 mountain_seeds = 5
 rain_dropoff = 0.35
