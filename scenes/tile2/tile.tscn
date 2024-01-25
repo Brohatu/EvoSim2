@@ -1,3 +1,9 @@
-[gd_scene format=3 uid="uid://bosrf2e7lenu4"]
+[gd_scene load_steps=2 format=3 uid="uid://bosrf2e7lenu4"]
+
+[ext_resource type="Texture2D" uid="uid://bqj7u5p6vgvo3" path="res://resources/hex2.png" id="1_vjd4g"]
 
 [node name="Tile" type="Area2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 0.523599
+texture = ExtResource("1_vjd4g")
