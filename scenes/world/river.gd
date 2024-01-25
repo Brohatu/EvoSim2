@@ -53,7 +53,7 @@ func step(current:Tile) -> bool:
 	current.river_size = path_length
 	river_tiles.append(current)
 	var next:Tile
-	var neighbours = current.get_overlapping_areas()
+	var neighbours = current.get_overlapping_tiles()
 	
 	# check whether there are any non mountain neighbours
 	var non_mountains = neighbours.filter(func(neighbour) : return neighbour.biome[BIOME_ID] != Globals.Biome_ID.MOUNTAIN)
@@ -128,7 +128,7 @@ func step_2(current:Tile, prev:Tile):
 	current.has_river = true
 	current.river_size = path_length
 	river_tiles.append(current)
-	var neighbours = current.get_overlapping_areas()
+	var neighbours = current.get_overlapping_tiles()
 	# remove previous tile from neighbours
 	if prev != null:
 		neighbours.erase(prev)
@@ -162,7 +162,7 @@ func step_2(current:Tile, prev:Tile):
 
 
 func step_old(current:Tile):
-	var neighbours = current.get_overlapping_areas()
+	var neighbours = current.get_overlapping_tiles()
 	var next:Tile = neighbours.pick_random()
 	if not river_tiles.has(next):
 		if not neighbours.filter(func(neighbour) : return neighbour.biome[BIOME_ID] == Globals.Biome_ID.OCEAN) and neighbours.filter(func(neighbour) : return neighbour.biome[BIOME_ID] != Globals.Biome_ID.MOUNTAIN):
