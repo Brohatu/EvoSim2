@@ -24,18 +24,18 @@ var river_counter = 0
 # Id, Name, Color, Base_Food,
 var Biomes = {
 	"Default" : [-1, "Default", Color(0,0,0), 0.0],
-	"Grassland" : [0, "Grassland", Color(0.46, 0.81, 0.24), 100.0],
-	"Desert" : [1, "Desert", Color(0.94, 0.89, 0.69), 1.0],
-	"Ocean" : [2, "Ocean", Color(0.15, 0.29, 0.60), 0.0],
-	"Mountain" : [3, "Mountain", Color(0.5, 0.5, 0.5), 1.0], 
+	"Grassland" : [0, "Grassland", Color(0.46, 0.81, 0.24), 100],
+	"Desert" : [1, "Desert", Color(0.94, 0.89, 0.69), 1],
+	"Ocean" : [2, "Ocean", Color(0.15, 0.29, 0.60), 0],
+	"Mountain" : [3, "Mountain", Color(0.5, 0.5, 0.5), 1], 
 	"Woods" : [4, "Woods", Color(0.0, 0.5, 0.25), 100.0],
-	"Rainforest" : [5, "Rainforest", Color(0.0, 0.35, 0.0), 100.0],
-	"Polar": [6, "Polar", Color(1.0, 1.0, 1.0), 1.0],
-	"Steppe": [7, "Steppe", Color(0.56, 0.61, 0.41), 70.0],
-	"Swamp": [8, "Swamp", Color(0.24, 0.38, 0.13), 70.0],
-	"Taiga" : [9, "Taiga", Color(1.0,1.0,1.0), 20.0],
-	"Scrubland" : [10, "Scrubland", Color(0,0.8,0.4), 20.0],
-	"Floodplain" : [11, "Floodplain", Color(0.94, 0.89, 0.69), 70.0]
+	"Rainforest" : [5, "Rainforest", Color(0.0, 0.35, 0.0), 100],
+	"Polar": [6, "Polar", Color(1.0, 1.0, 1.0), 1],
+	"Steppe": [7, "Steppe", Color(0.56, 0.61, 0.41), 70],
+	"Swamp": [8, "Swamp", Color(0.24, 0.38, 0.13), 70],
+	"Taiga" : [9, "Taiga", Color(1.0,1.0,1.0), 20],
+	"Scrubland" : [10, "Scrubland", Color(0,0.8,0.4), 20],
+	"Floodplain" : [11, "Floodplain", Color(0.94, 0.89, 0.69), 70]
 }
 # Base_Food currently exists at several distinct levels
 # Trivial access (100.0) - vegetation is abundant: Woods, Rainforest, Grassland
