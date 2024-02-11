@@ -34,7 +34,7 @@ const REST = 3
 	"Senses" : 100,
 	"Stealth" : 100,
 	"Fertility" : 100,
-	"Diet" : 10,
+	"Diet" : Diet.new(),
 	"Maturity" : 50,
 	"Lifespan" : 1000,
 	"Female" : true
@@ -205,6 +205,18 @@ func _determine_needs() -> int:
 
 
 func _sense():
+	
+	pass
+
+
+func _execute_action():
+	
+	pass
+
+
+
+
+func _sense_old():
 	var targets = location.get_overlapping_tiles().filter(func(t): return t.biome[BIOME_ID] != Globals.Biome_ID.OCEAN and t.biome[BIOME_ID] != Globals.Biome_ID.MOUNTAIN)
 	if not targets:
 		return location
@@ -253,7 +265,7 @@ func _sense():
 	return location
 
 
-func _execute_action() -> Action:
+func _execute_action_old() -> Action:
 	match need:
 		FOOD:
 			if location.vegetation > 0:
