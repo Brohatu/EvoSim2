@@ -1,5 +1,5 @@
 class_name Scent
-extends Node
+extends Resource
 
 # Scent: Species, Age, Sex, isPregnant, 
 var species
@@ -9,7 +9,3 @@ var isPregnant = false
 var strength = 10
 
 
-func _init(_age, _isFemale, _isPregnant):
-	age = _age
-	isFemale = _isFemale
-	isPregnant = _isPregnant 
