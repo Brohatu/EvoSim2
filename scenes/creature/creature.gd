@@ -406,7 +406,7 @@ func _check_death():
 
 
 func _die():
-	location.meat += genes["Size"]
+	location.meat += genes["Size"] * (1.0 - food_need) / 100
 	queue_free()
 
 
