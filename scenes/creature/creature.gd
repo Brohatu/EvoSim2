@@ -27,6 +27,7 @@ const REST = 3
 
 
 ### Export variables
+#region
 # equations are balanced around 100 being the average value
 @export var genes = {
 	"Size" : 100, 
@@ -40,8 +41,10 @@ const REST = 3
 	"Female" : true
 }
 
+#endregion
 
 ### Public variables
+#region
 var location:Tile:
 	set(val):
 		location = val
@@ -65,9 +68,10 @@ var food_need:float = 50.0
 var water_need:float = 30.0
 var love_need:float = 0.0
 
-
+#endregion
 
 ### Private variables
+#region
 ## Metabolism ##
 var _food_increment
 var _water_increment
@@ -79,21 +83,18 @@ var pregnant = [false, 0, null]
 ## Turn processing ##
 var need
 var _action:Action
-var _move_target
+var move_target
 
 ## State ##
 var _highlighted:bool = false
 
-
+#endregion
 
 ###############################################################################
 ### Built-in methods
 ## Object creation methods ##
 func _ready():
-	genes["Female"] = bool(randi_range(0,1))
-	scent["Age"] = age
-	scent["Female"] = genes["Female"]
-	scent["Pregnant"] = false
+	genes["Female"] = Globals.coin_flip()
 	
 	var base_activity_level = pow(genes["Speed"], 1.5) # baseline: 100^1.5 = 1000
 	var activity_level = base_activity_level + genes["Senses"] # baseline: 1000 + 100 = 1100
@@ -145,35 +146,21 @@ func _process(_delta):
 func process_turn():
 	# check death conditions
 	_check_death()
-	location.scent_list.append(scent)
-	age += 1
 	
+	# increment age
+	age += 1
 	if age >= genes["Maturity"]:
-		if genes["Female"]:
-			if !pregnant[0]:
-				love_need = min(20, love_need + 1)
-			else:
-				if pregnant[1] > 0:
-					if food_need > 70:
-						pregnant[0] = false
-						pregnant[1] = 0
-						pregnant[2] = 0
-					else:
-						pregnant[1] -= 1
-				else:
-					birth.emit(pregnant[2],location)
-					food_need += 20
-					pregnant[0] = false
-		else:
-			love_need = min(20, love_need + 1)
+		pass
 	else:
 		scale = genes["Size"] * Vector2.ONE * (age/float(genes["Maturity"])) * Globals.scale_factor
 	
 	
-	
+	# determine action for this turn
 	need = _determine_needs()
 	_action = _execute_action()
 	
+	
+	# execute action
 	match _action:
 		Action.EAT:
 			_eat()
@@ -181,11 +168,19 @@ func process_turn():
 			_drink()
 		Action.MATE:
 			_mate()
-		Action.MOVE:
-			_move()
 	
+	
+	# leave scent
+	location.scent_list.append(scent)
+	
+	# if needs only partially satisfied, move
+	_move()
+	
+	# increment needs
 	food_need += _food_increment
 	water_need += _water_increment
+	
+	
 
 
 
@@ -194,9 +189,9 @@ func process_turn():
 ### Private methods
 ## Turn stages ##
 func _determine_needs() -> int:
-	if water_need > food_need and water_need > love_need and water_need > 40:
+	if water_need > food_need and water_need > love_need:
 		return WATER
-	elif food_need > love_need and food_need > 40:
+	elif food_need > love_need:
 		return FOOD
 	elif love_need > 10:
 		return LOVE
@@ -210,8 +205,14 @@ func _sense():
 
 
 func _execute_action():
-	
-	pass
+	if need == WATER:
+		return Action.DRINK
+	elif need == FOOD:
+		return Action.EAT
+	else:
+		move_target = location.get_overlapping_tiles().pick_random()
+		return Action.MOVE
+
 
 
 
@@ -271,8 +272,8 @@ func _execute_action_old() -> Action:
 			if location.vegetation > 0:
 				return Action.EAT
 			else:
-				_move_target = _sense()
-				if _move_target == location:
+				move_target = _sense()
+				if move_target == location:
 					return Action.EAT
 				else:
 					return Action.MOVE
@@ -280,8 +281,8 @@ func _execute_action_old() -> Action:
 			if location.water_access > water_need:
 				return Action.DRINK
 			else:
-				_move_target = _sense()
-				if _move_target:
+				move_target = _sense()
+				if move_target:
 					return Action.DRINK
 				else:
 					return Action.MOVE
@@ -322,7 +323,8 @@ func _execute_action_old() -> Action:
 
 ## Move methods ##
 func _move():
-	location = _move_target
+	move_target = location.get_overlapping_tiles().pick_random()
+	location = move_target
 
 
 
@@ -339,8 +341,10 @@ func _drink():
 
 
 func _eat():
+	var diet_prefs = genes["Diet"] as Diet
 	var available = location.vegetation
 	var eaten = min(available, food_need)
+	diet_prefs
 	if eaten:
 		location.vegetation -= eaten
 		food_need -= eaten
