@@ -54,7 +54,7 @@ func display_creature():
 	$Data/CreatureDataContainer/CreatureData/Location/Val.text = str(c.location.id.x, ", ", c.location.id.y)
 	$Data/CreatureDataContainer/CreatureData/Age/Val.text = str(c.age)
 	$Data/CreatureDataContainer/CreatureData/Sex/Val.text = "Female" if c.genes["Female"] else "Male"
-	$Data/CreatureDataContainer/CreatureData/Diet/Val.text = str(c.genes["Diet"])
+	$Data/CreatureDataContainer/CreatureData/Diet/Val.text = str(c.genes["Diet"].plants) + ", " + str(c.genes["Diet"].meat)
 	$Data/CreatureDataContainer/CreatureData/Size/Val.text = str(c.genes["Size"])
 	$Data/CreatureDataContainer/CreatureData/Hunger/Val.text = str(int(c.food_need))
 	$Data/CreatureDataContainer/CreatureData/Thirst/Val.text = str(int(c.water_need))
