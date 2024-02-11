@@ -80,3 +80,7 @@ enum Biome_ID {
 #var Biome = {
 	#ID: 
 #}
+
+
+func coin_flip():
+	return true if randi_range(0,1) else false
