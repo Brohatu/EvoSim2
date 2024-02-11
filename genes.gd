@@ -3,23 +3,27 @@ extends Resource
 class_name Genes
 
 # TODO: make genes a dictionary
-#@export var genes {
-	#"Size" : 0.0,
-	#"Diet"
-#}
-@export var size:float = 1
+@export var genes = {
+	"Size" : 50,
+	"Speed" : 10,
+	"Senses" : 10,
+	"Diet" : 10,
+	"Maturity" : 50
+}
+var size:int
 #0 is obligate herbivore, 99 is obligate carnivore
 @export_range(0, 99) var diet:int = 0
-@export var fertility:int
-@export var senses:int
-@export var food_need:int
-@export var lifespan:int = 1000
-@export var sexual_maturity:int = 150
-@export var female:bool = true
+var fertility:int
+var senses:int
+var food_need:int
+var lifespan:int = 1000
+var sexual_maturity:int = 150
+var female:bool = true
+var speed:int = 20
 
 
 
-func mix_parents(mum:Genes, dad:Genes):
+func mix_parents(mum, dad):
 	size = mum.size if randi_range(0,1) else dad.size
 	fertility = mum.fertility if randi_range(0,1) else dad.fertility
 	senses = mum.senses if randi_range(0,1) else dad.senses

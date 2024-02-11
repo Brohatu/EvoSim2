@@ -156,6 +156,19 @@ layout_mode = 2
 size_flags_horizontal = 2
 text = "0"
 
+[node name="Thirst" type="HBoxContainer" parent="Data/CreatureDataContainer/CreatureData"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Data/CreatureDataContainer/CreatureData/Thirst"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Thirst:"
+
+[node name="Val" type="Label" parent="Data/CreatureDataContainer/CreatureData/Thirst"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "0"
+
 [node name="Horny" type="HBoxContainer" parent="Data/CreatureDataContainer/CreatureData"]
 layout_mode = 2
 
@@ -205,59 +218,188 @@ theme_override_constants/margin_bottom = 10
 layout_mode = 2
 color = Color(0.176471, 0.176471, 0.176471, 0.392157)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Data/TileDataContainer"]
+[node name="TileData" type="VBoxContainer" parent="Data/TileDataContainer"]
 layout_mode = 2
 
-[node name="Biome" type="HBoxContainer" parent="Data/TileDataContainer/VBoxContainer"]
+[node name="Biome" type="HBoxContainer" parent="Data/TileDataContainer/TileData"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Data/TileDataContainer/VBoxContainer/Biome"]
+[node name="Label" type="Label" parent="Data/TileDataContainer/TileData/Biome"]
 layout_mode = 2
 size_flags_horizontal = 2
 text = "Biome:"
 
-[node name="Val" type="Label" parent="Data/TileDataContainer/VBoxContainer/Biome"]
+[node name="Val" type="Label" parent="Data/TileDataContainer/TileData/Biome"]
 layout_mode = 2
 size_flags_horizontal = 2
 text = "0"
 
-[node name="Vegetation" type="HBoxContainer" parent="Data/TileDataContainer/VBoxContainer"]
+[node name="Region" type="HBoxContainer" parent="Data/TileDataContainer/TileData"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Data/TileDataContainer/VBoxContainer/Vegetation"]
+[node name="Label" type="Label" parent="Data/TileDataContainer/TileData/Region"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Region:"
+
+[node name="Val" type="Label" parent="Data/TileDataContainer/TileData/Region"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "0"
+
+[node name="Temperature" type="HBoxContainer" parent="Data/TileDataContainer/TileData"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Data/TileDataContainer/TileData/Temperature"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Temp:"
+
+[node name="Val" type="Label" parent="Data/TileDataContainer/TileData/Temperature"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "0"
+
+[node name="Altitude" type="HBoxContainer" parent="Data/TileDataContainer/TileData"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Data/TileDataContainer/TileData/Altitude"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Elevat:"
+
+[node name="Val" type="Label" parent="Data/TileDataContainer/TileData/Altitude"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "0"
+
+[node name="Precipitation" type="HBoxContainer" parent="Data/TileDataContainer/TileData"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Data/TileDataContainer/TileData/Precipitation"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Precip:"
+
+[node name="Val" type="Label" parent="Data/TileDataContainer/TileData/Precipitation"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "0"
+
+[node name="VegMax" type="HBoxContainer" parent="Data/TileDataContainer/TileData"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Data/TileDataContainer/TileData/VegMax"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "VMax:"
+
+[node name="Val" type="Label" parent="Data/TileDataContainer/TileData/VegMax"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "0"
+
+[node name="Vegetation" type="HBoxContainer" parent="Data/TileDataContainer/TileData"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Data/TileDataContainer/TileData/Vegetation"]
 layout_mode = 2
 size_flags_horizontal = 2
 text = "Vege:"
 
-[node name="Val" type="Label" parent="Data/TileDataContainer/VBoxContainer/Vegetation"]
+[node name="Val" type="Label" parent="Data/TileDataContainer/TileData/Vegetation"]
 layout_mode = 2
 size_flags_horizontal = 2
 text = "0"
 
-[node name="Meat" type="HBoxContainer" parent="Data/TileDataContainer/VBoxContainer"]
+[node name="PlantWaste" type="HBoxContainer" parent="Data/TileDataContainer/TileData"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Data/TileDataContainer/VBoxContainer/Meat"]
+[node name="Label" type="Label" parent="Data/TileDataContainer/TileData/PlantWaste"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "PWaste:"
+
+[node name="Val" type="Label" parent="Data/TileDataContainer/TileData/PlantWaste"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "0"
+
+[node name="Growth" type="HBoxContainer" parent="Data/TileDataContainer/TileData"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Data/TileDataContainer/TileData/Growth"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Growth:"
+
+[node name="Val" type="Label" parent="Data/TileDataContainer/TileData/Growth"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "0"
+
+[node name="Decomposers" type="HBoxContainer" parent="Data/TileDataContainer/TileData"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Data/TileDataContainer/TileData/Decomposers"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Decom:"
+
+[node name="Val" type="Label" parent="Data/TileDataContainer/TileData/Decomposers"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "0"
+
+[node name="Meat" type="HBoxContainer" parent="Data/TileDataContainer/TileData"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Data/TileDataContainer/TileData/Meat"]
 layout_mode = 2
 size_flags_horizontal = 2
 text = "Meat:"
 
-[node name="Val" type="Label" parent="Data/TileDataContainer/VBoxContainer/Meat"]
+[node name="Val" type="Label" parent="Data/TileDataContainer/TileData/Meat"]
 layout_mode = 2
 size_flags_horizontal = 2
 text = "0"
 
-[node name="River" type="HBoxContainer" parent="Data/TileDataContainer/VBoxContainer"]
+[node name="River" type="HBoxContainer" parent="Data/TileDataContainer/TileData"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Data/TileDataContainer/VBoxContainer/River"]
+[node name="Label" type="Label" parent="Data/TileDataContainer/TileData/River"]
 layout_mode = 2
 size_flags_horizontal = 2
 text = "River:"
 
-[node name="Val" type="Label" parent="Data/TileDataContainer/VBoxContainer/River"]
+[node name="Val" type="Label" parent="Data/TileDataContainer/TileData/River"]
 layout_mode = 2
 size_flags_horizontal = 2
+text = "0"
+
+[node name="PopulationDataContainer" type="MarginContainer" parent="Data"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="ColorRect2" type="ColorRect" parent="Data/PopulationDataContainer"]
+layout_mode = 2
+color = Color(0.176471, 0.176471, 0.176471, 0.392157)
+
+[node name="PopulationData" type="VBoxContainer" parent="Data/PopulationDataContainer"]
+layout_mode = 2
+
+[node name="Population" type="HBoxContainer" parent="Data/PopulationDataContainer/PopulationData"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Data/PopulationDataContainer/PopulationData/Population"]
+layout_mode = 2
+text = "Population: "
+
+[node name="Val" type="Label" parent="Data/PopulationDataContainer/PopulationData/Population"]
+layout_mode = 2
 text = "0"
 
 [connection signal="pressed" from="Buttons/Generate" to="." method="_on_generate_pressed"]

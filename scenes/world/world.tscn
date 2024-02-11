@@ -6,7 +6,6 @@
 [node name="World" type="Node2D"]
 script = ExtResource("1_ev4sh")
 parameters = ExtResource("2_e3cy7")
-old_gen = false
 
 [node name="Tiles" type="Node2D" parent="."]
 scale = Vector2(0.2, 0.2)

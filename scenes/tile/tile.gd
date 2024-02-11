@@ -5,7 +5,7 @@
 # https://static.vecteezy.com/system/resources/previews/016/006/221/original/beautiful-mangrove-tree-illustrations-vector.jpg
 extends Area2D
 
-class_name Tile
+class_name Tile_Old
 
 
 
@@ -17,8 +17,8 @@ class_name Tile
 	#Woods,
 	#Rainforest
 #}
-signal place_creature(tile)
-signal tile_data(tile)
+signal placed_creature(tile)
+signal tile_data_sent(tile)
 
 const BIOME_ID = 0
 const BIOME_NAME = 1
@@ -48,7 +48,7 @@ var vegetation_max:int
 var vegetation:int = 0
 
 # Meat
-var carrion:float = 0.0
+var meat:float = 0.0
 
 
 ## Water vars
@@ -62,8 +62,8 @@ var precip_temp:float
 var has_river:bool = false
 var river_size:int = 0
 var river_volume:float = 0.0
-var river_sources:Array[Tile]
-var river_sink:Tile
+var river_sources:Array[Tile_Old]
+var river_sink:Tile_Old
 
 # precipitation + river
 var water_access:float
@@ -100,9 +100,9 @@ func _process(_delta):
 			biome = new_biome
 			update()
 		if Input.is_action_just_pressed("add_creature"):
-			place_creature.emit(self)
-		if Input.is_action_just_pressed("select") and highlighted:
-			tile_data.emit(self)
+			placed_creature.emit(self)
+		elif Input.is_action_just_pressed("select"):
+			tile_data_sent.emit(self)
 
 
 func process_turn():
@@ -115,14 +115,19 @@ func process_turn():
 				$Sprites/Vegetation.scale = Vector2.ONE * vegetation/vegetation_max
 				
 		
-	if carrion > 0:
-		carrion -= min(1, carrion)
+	if meat > 0:
+		meat -= min(1, meat)
+	if scent_male:
+		scent_male -= min(1, scent_male)
+	if scent_female:
+		scent_female -= min(1, scent_female)
+
 
 
 
 func food_request_basic():
 	var _preferred_food = randf_range(0.0,10.0)
-	
+
 
 func food_request(_c:Creature):
 	var preferred_food = randf_range(0.0,10.0)
@@ -141,15 +146,16 @@ func get_overlapping_tiles() -> Array:
 	return tiles
 
 func reset():
-	biome_name = ""
-	temp = 0.0
-	precip = 0.0
 	biome = Globals.Biomes["Ocean"]
 	has_river = false
-	river_size = 0
-	carrion = 0.0
-	vegetation = vegetation_max
 	update()
+	river_size = 0
+	river_volume = 0
+	meat = 0.0
+	vegetation = vegetation_max
+	temp = 0.0
+	precip = 0.0
+
 
 
 func random_biome():
@@ -163,15 +169,15 @@ func random_biome():
 
 
 func update():
-	
 	update_food(biome[BIOME_BASE_FOOD])
 	update_color()
 	
 	var sprites = $Sprites.get_children()
-	for i in range(0,1):
+	for i in range(0,2):
 		sprites[i].visible = false
 	for s in $Sprites/Vegetation.get_children():
 		s.visible = false
+	biome_name = biome[BIOME_NAME]
 	match biome[BIOME_NAME]:
 		"Mountain":
 			$Sprites/Mountains.visible = true
@@ -186,13 +192,12 @@ func update():
 		"Scrubland":
 			$Sprites/Vegetation/Scrubland.visible = true
 		"Polar":
-			#for child in $Control.get_children():
-				#child.theme_override_colors/font_shadow
+			pass
+		"Ocean":
 			pass
 		"Swamp":
 			$Sprites/Vegetation/Swamp.visible = true
 	update_water_volume()
-	biome_name = biome[BIOME_NAME]
 	$Control/Precipitation.text = str(water_access)
 
 

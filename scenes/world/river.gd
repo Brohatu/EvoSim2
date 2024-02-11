@@ -20,11 +20,11 @@ const BIOME_RAINFALL = 4
 
 var path_length:int = 0
 var river_tiles:Array = []
-var source:Tile
+var source
 
 var additive_rivers:bool = false
 
-func begin(src:Tile) -> bool:
+func begin(src) -> bool:
 	source = src
 	#source.river_sources.append(source)
 	#Globals.river_counter += 1
@@ -39,7 +39,7 @@ func begin(src:Tile) -> bool:
 # 3) filter out upstream tiles
 # 4) check if we've hit a bigger river
 # 5) step normally to random remaining tile option
-func step(current:Tile) -> bool:
+func step(current) -> bool:
 	# path_length increments when assigning value to tile.
 	# If the river has to be retracted to an earlier tile, path_length become
 	# the value at that tile
@@ -52,16 +52,16 @@ func step(current:Tile) -> bool:
 	print("Id: ", current.id, "  River increment: ", Globals.river_counter)
 	current.river_size = path_length
 	river_tiles.append(current)
-	var next:Tile
+	var next
 	var neighbours = current.get_overlapping_tiles()
 	
 	# check whether there are any non mountain neighbours
 	var non_mountains = neighbours.filter(func(neighbour) : return neighbour.biome[BIOME_ID] != Globals.Biome_ID.MOUNTAIN)
 	if non_mountains:
 		# check for neighbouring rivers. If one exists, attach this river to it
-		var adjacent_river_tiles = non_mountains.filter(func(neighbour:Tile) : return neighbour.has_river)
+		var adjacent_river_tiles = non_mountains.filter(func(neighbour) : return neighbour.has_river)
 		if adjacent_river_tiles:
-				adjacent_river_tiles.sort_custom(func(a:Tile, b:Tile) : return a.river_size > b.river_size)
+				adjacent_river_tiles.sort_custom(func(a, b) : return a.river_size > b.river_size)
 				next = adjacent_river_tiles[0]
 				next.river_sources.append(current)
 				return true
@@ -92,7 +92,7 @@ func step(current:Tile) -> bool:
 			# Remove previous tiles from this river from potential targets
 			var upstream_tiles = non_mountains.filter(func(neighbour) : return river_tiles.has(neighbour))
 			if upstream_tiles:
-				for t:Tile in upstream_tiles:
+				for t in upstream_tiles:
 					non_mountains.erase(t)
 			
 			if not non_mountains:
@@ -122,7 +122,7 @@ func step(current:Tile) -> bool:
 
 
 
-func step_2(current:Tile, prev:Tile):
+func step_2(current, prev):
 	# assign river stats
 	path_length += 1
 	current.has_river = true
@@ -134,7 +134,7 @@ func step_2(current:Tile, prev:Tile):
 		neighbours.erase(prev)
 	# remove mountains from possible target tiles
 	# remove previous tile of this river from target tiles
-	for n:Tile in neighbours:
+	for n in neighbours:
 		match n.biome[BIOME_ID]:
 			Globals.Biome_ID.MOUNTAIN:
 				neighbours.erase(n)
@@ -161,9 +161,9 @@ func step_2(current:Tile, prev:Tile):
 
 
 
-func step_old(current:Tile):
+func step_old(current):
 	var neighbours = current.get_overlapping_tiles()
-	var next:Tile = neighbours.pick_random()
+	var next = neighbours.pick_random()
 	if not river_tiles.has(next):
 		if not neighbours.filter(func(neighbour) : return neighbour.biome[BIOME_ID] == Globals.Biome_ID.OCEAN) and neighbours.filter(func(neighbour) : return neighbour.biome[BIOME_ID] != Globals.Biome_ID.MOUNTAIN):
 			while next.biome[BIOME_ID] == Globals.Biome_ID.MOUNTAIN:
@@ -182,11 +182,11 @@ func step_old(current:Tile):
 					step_old(next)
 
 
-func overrule_river(target:Tile):
+func overrule_river(target):
 	path_length += 1
 	target.river_size = path_length
 
-func check_river(current:Tile, target:Tile) -> bool:
+func check_river(current, target) -> bool:
 	if current.river_size > target.river_size:
 		overrule_river(target)
 	else:

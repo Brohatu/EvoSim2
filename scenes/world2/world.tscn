@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://d4rpv3cvpsux"]
+
+[ext_resource type="Script" path="res://scenes/world2/world.gd" id="1_1uo4w"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_d2xdt"]
+frequency = 0.0139
+offset = Vector3(-149.25, 59.7, 0)
+fractal_type = 2
+fractal_octaves = 3
+fractal_gain = 1.165
+fractal_weighted_strength = 1.0
+
+[node name="World" type="Node2D"]
+script = ExtResource("1_1uo4w")
+dimensions = Vector2i(60, 60)
+noise = SubResource("FastNoiseLite_d2xdt")
+
+[node name="Tiles" type="Node2D" parent="."]

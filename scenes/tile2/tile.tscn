@@ -1,9 +1,166 @@
-[gd_scene load_steps=2 format=3 uid="uid://bosrf2e7lenu4"]
+[gd_scene load_steps=14 format=3 uid="uid://bosrf2e7lenu4"]
 
+[ext_resource type="Script" path="res://scenes/tile2/tile.gd" id="1_eqrdl"]
 [ext_resource type="Texture2D" uid="uid://bqj7u5p6vgvo3" path="res://resources/hex2.png" id="1_vjd4g"]
+[ext_resource type="Script" path="res://scenes/tile2/TileSensor.gd" id="3_0oorr"]
+[ext_resource type="Texture2D" uid="uid://po6qu3jdm182" path="res://resources/pine-tree-isaiah658-bigger-preview.png" id="3_n53uk"]
+[ext_resource type="Texture2D" uid="uid://b657vj6l7bk2g" path="res://resources/jungle_tree_big.png" id="4_22khs"]
+[ext_resource type="Texture2D" uid="uid://dmpdireot6xqf" path="res://resources/mountain_scaled.png" id="4_70k4s"]
+[ext_resource type="Texture2D" uid="uid://dp42o3tk5j2cy" path="res://resources/Acacia_Tree_sprite_002.webp" id="6_0uqqm"]
+[ext_resource type="Texture2D" uid="uid://h657iiqs3ue3" path="res://resources/beautiful-mangrove-tree-illustrations-vector.png" id="6_cjbai"]
+[ext_resource type="Texture2D" uid="uid://bwkbdhxpdew65" path="res://resources/f3ae0fa9b3d9475322c69b974aa1722b.png" id="6_hd6ew"]
+[ext_resource type="Texture2D" uid="uid://djyd673npfga2" path="res://resources/186-1860506_jungle-tree-png.png" id="10_v7xim"]
 
-[node name="Tile" type="Area2D"]
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_f0u3o"]
+a = Vector2(0, -131)
+b = Vector2(0, -135)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_tj05v"]
+a = Vector2(-155, -5)
+b = Vector2(-155, 5)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_38b8h"]
+a = Vector2(155, -5)
+b = Vector2(155, 5)
+
+[node name="Tile" type="Area2D" groups=["Tiles"]]
+collision_mask = 2
+script = ExtResource("1_eqrdl")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-rotation = 0.523599
+modulate = Color(0, 0, 0, 1)
+rotation = 1.5708
 texture = ExtResource("1_vjd4g")
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(75, 130, -75, 130, -150, 0, -75, -130, 75, -130, 150, 0)
+
+[node name="Tile Sensor" type="Area2D" parent="."]
+collision_layer = 0
+monitorable = false
+script = ExtResource("3_0oorr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Tile Sensor"]
+shape = SubResource("SegmentShape2D_f0u3o")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Tile Sensor"]
+shape = SubResource("SegmentShape2D_tj05v")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Tile Sensor"]
+shape = SubResource("SegmentShape2D_38b8h")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Tile Sensor"]
+shape = SubResource("SegmentShape2D_f0u3o")
+
+[node name="Mountains" type="Node2D" parent="."]
+visible = false
+
+[node name="Sprite2D3" type="Sprite2D" parent="Mountains"]
+position = Vector2(29, -98)
+texture = ExtResource("4_70k4s")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Mountains"]
+position = Vector2(-43, -32)
+texture = ExtResource("4_70k4s")
+
+[node name="Sprite2D" type="Sprite2D" parent="Mountains"]
+position = Vector2(54, 20)
+texture = ExtResource("4_70k4s")
+
+[node name="Sprites" type="Node2D" parent="."]
+
+[node name="Coniferous" type="Node2D" parent="Sprites"]
+visible = false
+
+[node name="Sprite2D" type="Sprite2D" parent="Sprites/Coniferous"]
+position = Vector2(0, -70)
+scale = Vector2(0.55, 0.55)
+texture = ExtResource("3_n53uk")
+
+[node name="Deciduous" type="Node2D" parent="Sprites"]
+visible = false
+
+[node name="Sprite2D" type="Sprite2D" parent="Sprites/Deciduous"]
+position = Vector2(-4, -48)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("6_hd6ew")
+region_enabled = true
+region_rect = Rect2(0, 0, 266.5, 316)
+
+[node name="Acacia" type="Node2D" parent="Sprites"]
+visible = false
+
+[node name="Sprite2D" type="Sprite2D" parent="Sprites/Acacia"]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("6_0uqqm")
+
+[node name="Rainforest" type="Node2D" parent="Sprites"]
+visible = false
+
+[node name="Sprite2D" type="Sprite2D" parent="Sprites/Rainforest"]
+position = Vector2(15, -73)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_22khs")
+
+[node name="Swamp" type="Node2D" parent="Sprites"]
+visible = false
+
+[node name="Sprite2D" type="Sprite2D" parent="Sprites/Swamp"]
+position = Vector2(0, -50)
+scale = Vector2(0.18, 0.18)
+texture = ExtResource("6_cjbai")
+
+[node name="Fern" type="Node2D" parent="Sprites"]
+
+[node name="Sprite2D" type="Sprite2D" parent="Sprites/Fern"]
+position = Vector2(6, -13)
+scale = Vector2(0.13, 0.13)
+texture = ExtResource("10_v7xim")
+
+[node name="Control" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_left = -49.0
+offset_top = 10.0
+offset_right = 45.0
+offset_bottom = 96.0
+mouse_filter = 2
+
+[node name="ColorRect" type="ColorRect" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0862745, 0.0862745, 0.0862745, 0.301961)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label3" type="Label" parent="Control/VBoxContainer"]
+layout_mode = 2
+text = "LATITUDE"
+
+[node name="Label" type="Label" parent="Control/VBoxContainer"]
+layout_mode = 2
+text = "TEMP"
+
+[node name="Label2" type="Label" parent="Control/VBoxContainer"]
+layout_mode = 2
+text = "ALITITUDE"
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(0, 5000)
+collision_mask = 4
+collide_with_areas = true
+collide_with_bodies = false
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

@@ -82,3 +82,4 @@ camera_down={
 
 2d_physics/layer_1="Tiles"
 2d_physics/layer_2="Creatures"
+2d_physics/layer_3="Ocean"

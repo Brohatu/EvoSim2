@@ -1,0 +1,63 @@
+01. tool
+
+02. class_name
+class_name 
+
+03. extends
+extends 
+04. # docstring
+## Place description here
+
+###############################################################################
+### Signals
+#region
+
+#endregion
+
+## Enums
+#region
+
+#endregion
+
+Constants
+#region
+
+#endregion
+
+## Exported variables
+#region
+
+#endregion
+
+## Public variables
+#region
+
+#endregion
+
+## Private variables
+#region
+
+#endregion
+
+## Onready variables
+#region
+
+#endregion
+
+###############################################################################
+## Built-in virtual methods
+#region
+
+#endregion
+
+###############################################################################
+## Public methods
+#region
+
+#endregion
+
+###############################################################################
+## Private method
+#region
+
+#endregion

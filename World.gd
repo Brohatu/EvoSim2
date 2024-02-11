@@ -1,6 +1,6 @@
 extends Node2D
 
-class_name World
+class_name World_Old
 
 var tile_scene:PackedScene = preload("res://scenes/tile/tile.tscn")
 
@@ -23,7 +23,8 @@ const DRY_S = 0.7
 const TROPICAL = 0.6
 
 @export var parameters:WorldParameters
-@export var old_gen:bool = true
+@export var old_gen:bool = false
+
 
 # all tiles on the map
 var tiles:Array
@@ -65,7 +66,7 @@ func generate_world_tiles():
 	var offset:bool = false
 	for j in parameters.dimensions.y:
 		for i in parameters.dimensions.x:
-			var tile = tile_scene.instantiate() as Tile
+			var tile = tile_scene.instantiate() as Tile_Old
 			tile.global_position.x = 150 + i * 225 
 			if offset:
 				tile.global_position.y = 130 + j * 260
@@ -88,7 +89,7 @@ func generate_world_terrain():
 	# Mountain: Mountain(50%), Woods(20%), Desert(20%), Rainforest(5%), Ocean(5%), Grassland(10%)
 	
 	if old_gen:
-		for t:Tile in tiles:
+		for t in tiles:
 			t.biome = Globals.Biomes["Default"]
 			t.update()
 		var initial = tiles.pick_random() as Tile
@@ -97,11 +98,11 @@ func generate_world_terrain():
 		for t in neighbours:
 			generate_terrain_old(t)
 	else:
-		generate_terrain_new()
+		generate_terrain()
 
 
 
-func generate_terrain_new():
+func generate_terrain():
 	# 0) create new build array with all tiles inside. Erase them from build_arr once they are finished generating
 	land = []
 	# all tiles are ocean tiles at generation start
@@ -143,7 +144,7 @@ func generate_terrain_new():
 
 
 
-func spread_land(count:int, tile:Tile):
+func spread_land(count:int, tile):
 	print("Spread level: ", count)
 	if tile.id.x > 0 and tile.id.x < parameters.dimensions.x - 1:
 		tile.biome = Globals.Biomes["Default"]
@@ -174,9 +175,9 @@ func generate_continents():
 	var count = parameters.continent_spread
 		# select x random tiles
 	for i in range(0, parameters.land_seeds):
-		var land_seed:Tile = tiles.pick_random() as Tile
+		var land_seed = tiles.pick_random()
 		while land_seed.biome[BIOME_ID] != Globals.Biome_ID.OCEAN or (land_seed.id.x <= 0):
-			land_seed = tiles.pick_random() as Tile
+			land_seed = tiles.pick_random()
 		# x.biome = land
 		ocean.erase(land_seed)
 		spread_land(count, land_seed)
@@ -206,9 +207,9 @@ func generate_mountains():
 	var counter:int
 	for i in range(0, parameters.mountain_seeds):
 		counter = randi_range(2,5)
-		var mountain_seed = land.pick_random() as Tile
+		var mountain_seed = land.pick_random()
 		while mountain_seed.biome[BIOME_ID] != Globals.Biome_ID.DEFAULT:
-			mountain_seed = land.pick_random() as Tile
+			mountain_seed = land.pick_random()
 		mountain_seed.biome = Globals.Biomes["Mountain"]
 		mountain_seed.update()
 		mountains.append(mountain_seed)
@@ -216,7 +217,7 @@ func generate_mountains():
 			walk_mountain(mountain_seed, counter)
 
 
-func walk_mountain(mountain:Tile, counter:int):
+func walk_mountain(mountain, counter:int):
 	counter -= 1
 	var neighbours = mountain.get_overlapping_tiles()
 	var next_mountain = neighbours.pick_random()
@@ -248,7 +249,7 @@ func generate_rivers():
 			var valid_river = new_river.begin(m)
 			if valid_river:
 				rivers.append(new_river)
-				for t:Tile in new_river.river_tiles:
+				for t in new_river.river_tiles:
 					t.has_river = true
 					if t.river_sources:
 						for src in t.river_sources:
@@ -257,7 +258,7 @@ func generate_rivers():
 						river_sources.append(t)
 					t.update()
 	
-	for src:Tile in river_sources:
+	for src in river_sources:
 		src.river_volume = 5.0
 		if src.river_sink:
 			src.river_sink.update_river()
@@ -276,13 +277,13 @@ func generate_rivers_old():
 			new_river.step_2(m,null)
 			rivers.append(new_river)
 	for r:River in rivers:
-		for t:Tile in r.river_tiles:
+		for t in r.river_tiles:
 			
 			t.update()
 
-func walk_river(current:Tile):
+func walk_river(current):
 	var neighbours = current.get_overlapping_tiles()
-	var river_out:Tile = neighbours.pick_random()
+	var river_out = neighbours.pick_random()
 	while river_out.biome[BIOME_ID] == Globals.Biome_ID.MOUNTAIN:
 		neighbours.erase(river_out)
 		if neighbours.size() > 0:
@@ -305,7 +306,7 @@ func generate_precipitation():
 	
 	# give ocean tiles 100% rainfall and remove them from rain_tiles
 	# remove mountains from rain_tiles
-	for t:Tile in tiles:
+	for t in tiles:
 		if t.biome[BIOME_ID] == Globals.Biome_ID.OCEAN:
 			t.precip = 100.0
 			t.update()
@@ -319,11 +320,11 @@ func generate_precipitation():
 	# get coastal precip
 	print("generating coastal rainfall")
 	var neighbours:Array
-	for t:Tile in tiles:
+	for t in tiles:
 		if t.biome[BIOME_ID] != Globals.Biome_ID.MOUNTAIN and t.biome[BIOME_ID] != Globals.Biome_ID.OCEAN:
 			var precip_val:float = 0.0
 			neighbours = t.get_overlapping_tiles()
-			for n:Tile in neighbours:
+			for n in neighbours:
 				match n.biome[BIOME_ID]:
 					Globals.Biome_ID.OCEAN:
 						precip_val += n.precip * parameters.rain_dropoff
@@ -338,13 +339,13 @@ func generate_precipitation():
 	# get precip for inner layers from coast
 	print("generating inland rainfall")
 	while rain_tiles.size() > 0:
-		for t:Tile in rain_tiles:
+		for t in rain_tiles:
 			var precip_val = 0.0
 			neighbours = t.get_overlapping_tiles()
-			for n:Tile in neighbours:
+			for n in neighbours:
 				precip_val += n.precip * parameters.rain_dropoff
 			t.precip_temp = precip_val
-		for t:Tile in tiles:
+		for t in tiles:
 			if rain_tiles.has(t):
 				if t.precip_temp != 0:
 					t.precip += t.precip_temp
@@ -358,7 +359,7 @@ func generate_precipitation():
 
 
 func generate_biomes():
-	for t:Tile in land:
+	for t in land:
 		if t.biome[BIOME_ID] != Globals.Biome_ID.MOUNTAIN:
 			var lat = t.id.y
 			
@@ -442,7 +443,7 @@ func generate_biomes():
 
 func generate_biomes_old():
 	var lat:float
-	for t:Tile in land:
+	for t in land:
 		if t.biome[BIOME_ID] != Globals.Biome_ID.MOUNTAIN:
 			lat = t.id.y
 			
@@ -503,7 +504,7 @@ func generate_biomes_old():
 			t.update()
 
 func adjust_biomes():
-	for t:Tile in tiles:
+	for t in tiles:
 		
 		#var neighbours = t.get_overlapping_areas()
 		match t.biome[BIOME_ID]:
@@ -537,7 +538,7 @@ func adjust_biomes():
 
 
 
-func generate_terrain_old(current:Tile):
+func generate_terrain_old(current):
 	var allow_desert = true
 	var allow_forests = true
 	var neighbours:Array = current.get_overlapping_tiles()
@@ -651,7 +652,7 @@ func generate_terrain_old(current:Tile):
 			generate_terrain_old(t)
 	
 
-#func get_neighbours(current:Tile):
+#func get_neighbours(current):
 	#var neighbours:Array = []
 	#if current.id.x % 2:
 		#pass
