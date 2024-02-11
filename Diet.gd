@@ -16,14 +16,17 @@ extends Resource
 
 ## Constants
 #region
-
+const MEAT = 0
+const PLANTS = 1
 #endregion
 
 ## Exported variables
 #region
-# Diet variables should sum to 10
-@export var meat = 5
-@export var plants = 5
+# Diet values should sum to 10
+@export var diet = {
+	"Meat" = 5,
+	"Plants" = 5
+}
 
 #endregion
 
@@ -54,11 +57,14 @@ extends Resource
 func mutate():
 	var mutate_amount = randi_range(0,3)
 	if Globals.coin_flip():
-		meat -= mutate_amount
-		plants += mutate_amount
+		diet["Meat"] -= mutate_amount
+		diet["Plants"] += mutate_amount
 	else:
-		meat += mutate_amount
-		plants -= mutate_amount
+		diet["Meat"] += mutate_amount
+		diet["Plants"] -= mutate_amount
+
+func test():
+	diet.values()
 
 #endregion
 
